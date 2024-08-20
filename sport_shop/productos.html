@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Sport Shop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap">
+</head>
+<body>
+    <header>
+        <h1>Sport Shop</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+        <div id="user">
+            <?php
+            session_start();
+            if (isset($_SESSION['nombre_usuario'])) {
+                echo "<p>Bienvenido, " . $_SESSION['nombre_usuario'] . " | <a href='logout.php'>Cerrar sesión</a></p>";
+            } else {
+                echo '<a href="login.php">Iniciar sesión</a> | <a href="register.php">Registrarse</a>';
+            }
+            ?>
+        </div>
+        </div>
+        <div id="cart">
+            <a href="#" onclick="toggleCart()">Carrito (0)</a>
+        </div>
+    </header>
+
+    <main>
+        <div id="filter">
+            <label for="sport-filter">Filtrar por deporte:</label>
+            <select id="sport-filter" onchange="filterProducts()">
+                <option value="all">Todos los productos</option>
+                <option value="futbol">futbol</option>
+                <option value="tenis">tenis</option>
+                <option value="natacion">natacion</option>
+                <option value="boxeo">boxeo</option>
+                <option value="baloncesto">baloncesto</option>
+                <option value="softball">softball</option>
+            </select>
+        </div>
+
+        <div id="productos">
+            <!-- Los productos se cargarán aquí usando JavaScript -->
+        </div>
+    </main>
+
+    <div class="auth-form" id="login-form" style="display: none;">
+        <h2>Iniciar sesión</h2>
+        <input type="text" id="login-username" placeholder="Nombre de usuario">
+        <input type="password" id="login-password" placeholder="Contraseña">
+        <button onclick="login()">Iniciar sesión</button>
+        <button onclick="showRegister()">Registrarse</button>
+    </div>
+
+    <div class="auth-form" id="register-form" style="display: none;">
+        <h2>Registrarse</h2>
+        <input type="text" id="register-username" placeholder="Nombre de usuario">
+        <input type="password" id="register-password" placeholder="Contraseña">
+        <button onclick="register()">Registrarse</button>
+        <button onclick="showLogin()">Iniciar sesión</button>
+    </div>
+
+    <footer>
+        <p>© 2024 Sport Shop. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Cargar productos en la página de productos
+        loadProducts();
+    </script>
+
+    <div id="cart-dropdown" style="display: none;">
+        <h2>Carrito de Compras</h2>
+        <div id="cart-items"></div>
+        <button onclick="clearCart()">Vaciar Carrito</button>
+    </div>
+
+    <div id="payment-form" style="display: none;">
+        <h3>Información de Pago</h3>
+        <label for="card-number">Número de Tarjeta:</label>
+        <input type="text" id="card-number" maxlength="16" placeholder="1234 5678 9101 1121">
+    
+        <label for="expiry-date">Fecha de Vencimiento:</label>
+        <input type="text" id="expiry-date" placeholder="MM/AA">
+    
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" maxlength="3" placeholder="123">
+    
+        <label for="client-name">Nombre del Cliente:</label>
+        <input type="text" id="client-name" placeholder="Nombre del Cliente">
+    
+        <label for="client-email">Email del Cliente:</label>
+        <input type="email" id="client-email" placeholder="email@ejemplo.com">
+    
+        <label for="client-address">Dirección:</label>
+        <input type="text" id="client-address" placeholder="Dirección Completa">
+    
+        <button onclick="processPayment()">Confirmar Compra</button>
+    </div>
+</body>
+</html>
